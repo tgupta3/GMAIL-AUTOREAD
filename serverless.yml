@@ -42,7 +42,7 @@ functions:
           name: 'Tushar-Gmail'
           rate: cron(0 21 * * ? *)
           enabled: true
-    iamRoleStatementsName: tushargmail-roke
+    iamRoleStatementsName: tushargmail-role
     iamRoleStatements:
       - Effect: "Allow"  
         Action:
