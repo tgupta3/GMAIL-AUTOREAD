@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: tushargmailABC
+service: gmailread
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -39,19 +39,20 @@ functions:
     handler: handler.lambda_handler
     events:
       - schedule:
-          name: 'Tushar-Gmail'
+          name: 'GMAI-READ-SCHEDULE'
           rate: cron(0 21 * * ? *)
           enabled: true
-    iamRoleStatementsName: tushargmail-role
+    iamRoleStatementsName: gmailread-role
     iamRoleStatements:
       - Effect: "Allow"  
         Action:
           - kms:Decrypt
-        Resource: "arn:aws:kms:us-east-1:360628722985:key/d5073c1c-ed65-4e3d-a3e3-5df8e89e55f2"
+        Resource: "${self:custom.secret.KMS_ARN}"
       
 custom:
     stage: ${opt:stage, self:provider.stage}
     secret: ${file(secret.yml):${self:custom.stage}}
+    
     pythonRequirements:
       dockerizePip: non-linux
     
