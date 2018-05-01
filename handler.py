@@ -45,18 +45,31 @@ def lambda_handler(event, context):
     except errors.HttpError, error:
         print ('An error occurred: %s' % error)
     
-    for unread in unread_messages:
-        msg_labels = {'removeLabelIds': ['UNREAD'] }
+    message_ids=[message_ids['id'] for message_ids in unread_messages if 'id' in message_ids]
+    msg_labels = {'ids': message_ids , 'removeLabelIds': ['UNREAD'] }
+    if (len(message_ids) >= 999):
+        for unread in unread_messages:
+            msg_labels = {'removeLabelIds': ['UNREAD'] }
+            try:
+                message = service.users().messages().modify(userId='me', id=unread['id'],
+                                                        body=msg_labels).execute()
+                label_ids = message['labelIds']
+                print ('Message ID: %s - With Label IDs %s' % (unread['id'], label_ids))
+            except errors.HttpError, error:
+                print ('An error occurred: %s' % error)
+
+    elif(message_ids):
         try:
-            message = service.users().messages().modify(userId='me', id=unread['id'],
+            message = service.users().messages().batchModify(userId='me',
                                                     body=msg_labels).execute()
-
-            label_ids = message['labelIds']
-
-            print ('Message ID: %s - With Label IDs %s' % (unread['id'], label_ids))
-       
+    
+            print ("Marked %s messages as Read" %len(message_ids))
         except errors.HttpError, error:
             print ('An error occurred: %s' % error)
+        
+    else:
+        print ("No messages to mark as read")
+    
 
     
     # TODO implement
