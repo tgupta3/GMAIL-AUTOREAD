@@ -40,7 +40,7 @@ functions:
     events:
       - schedule:
           name: 'GMAI-READ-SCHEDULE'
-          rate: cron(0 21 * * ? *)
+          rate: cron(0 2 * * ? *)
           enabled: true
     iamRoleStatementsName: gmailread-role
     iamRoleStatements:
