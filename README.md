@@ -15,14 +15,14 @@ default: &default
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+
 Requires the following things:
-1. [Serverless framework] (https://serverless.com/framework/docs/getting-started/)
+1. [Serverless framework](https://serverless.com/framework/docs/getting-started/)
 2. Google OAuth Libraries
-```
-pip install google-api-python-client
-```
-3. [Node 6+] (https://nodejs.org/en/download/)
+    ```
+    pip install google-api-python-client
+    ```
+3. [Node 6+](https://nodejs.org/en/download/)
 
 ### Installing
 
