@@ -26,8 +26,8 @@ class Gmail():
             'my-user-agent'
         )
         http = client_credentials.authorize(httplib2.Http())
-        self.service = build('gmail', 'v1', http=http, cache_discovery=False)
-        return self.service
+        return build('gmail', 'v1', http=http, cache_discovery=False)
+       
         
     def __get_creds(self):
         client_kms = boto3.client('kms')
