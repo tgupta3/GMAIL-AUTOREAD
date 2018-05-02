@@ -43,7 +43,7 @@ serverless deploy --verbose
 * **Tushar Gupta** - *Initial work* - [tgupta3](https://github.com/tgupta3)
 
 
-### TODO
+## TODO
 
 1. Add continous code deployment using Codepipeline and Codedeploy
 2. Update the README on how to generate the OAuth Credentials as well as the KMS Key from that
