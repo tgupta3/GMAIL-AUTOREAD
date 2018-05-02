@@ -80,15 +80,15 @@ class Gmail():
     
 
     def __mark_batch_read(self,unread_messages,userid):
-            message_ids=[message_ids['id'] for message_ids in unread_messages if 'id' in message_ids]
-            msg_labels = {'ids': message_ids , 'removeLabelIds': ['UNREAD'] }
-            try:
-                message = self.service.users().messages().batchModify(userId=userid,
-                                                body=msg_labels).execute()
+        message_ids=[message_ids['id'] for message_ids in unread_messages if 'id' in message_ids]
+        msg_labels = {'ids': message_ids , 'removeLabelIds': ['UNREAD'] }
+        try:
+            message = self.service.users().messages().batchModify(userId=userid,
+                                            body=msg_labels).execute()
 
-                # print ("Marked %s messages as Read" %len(message_ids))
-            except errors.HttpError, error:
-                print ('An error occurred: %s' % error)
+            # print ("Marked %s messages as Read" %len(message_ids))
+        except errors.HttpError, error:
+            print ('An error occurred: %s' % error)
 
 def lambda_handler(event, context):
     # Call the Gmail API
