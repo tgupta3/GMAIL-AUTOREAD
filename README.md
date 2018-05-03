@@ -48,3 +48,4 @@ serverless deploy --verbose
 1. Add continous code deployment using Codepipeline and Codedeploy
 2. Update the README on how to generate the OAuth Credentials as well as the KMS Key from that
 3. Write an Ansible playbook to deploy the application starting from generating credentials to final deployment on AWS Lambda
+4. Add option to specify region

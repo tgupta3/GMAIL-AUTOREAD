@@ -20,9 +20,11 @@ service: gmailread
 provider:
   name: aws
   runtime: python2.7
-  stage: default
+  stage: ${opt:stage, 'default'}
   region: us-east-1
   timeout: 180
+  deploymentBucket:
+    name: "${self:custom.secret.BUCKET}"
   environment:
     KMS_KEY: "${self:custom.secret.KMS_KEY}"
 
@@ -39,10 +41,10 @@ functions:
     handler: handler.lambda_handler
     events:
       - schedule:
-          name: 'GMAIL-READ-SCHEDULE'
+          name: "${self:custom.secret.EVENT_NAME}"
           rate: cron(0 2 * * ? *)
           enabled: true
-    iamRoleStatementsName: gmailread-role
+    
     iamRoleStatements:
       - Effect: "Allow"  
         Action:
@@ -50,7 +52,7 @@ functions:
         Resource: "${self:custom.secret.KMS_ARN}"
       
 custom:
-    stage: ${opt:stage, self:provider.stage}
+    stage: ${opt:stage, 'default'}
     secret: ${file(secret.yml):${self:custom.stage}}
     
     pythonRequirements:
