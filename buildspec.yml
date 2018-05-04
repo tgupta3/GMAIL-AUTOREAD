@@ -4,6 +4,11 @@ phases:
     commands:
       - npm install
       - npm install -g serverless
+      
+  pre_build:
+    commands:
+      - python pre_build.py
+      
   build:
     commands:
       - serverless deploy --stage dev --verbose
