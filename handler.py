@@ -6,7 +6,7 @@ from oauth2client import file, client, tools
 from base64 import b64decode
 import boto3, json, httplib2, os
 
-credentials = os.environ["KMS_KEY"]
+
 class Gmail():
     
     def __init__(self,credentials):
@@ -91,7 +91,8 @@ class Gmail():
             print ('An error occurred: %s' % error)
 
 def lambda_handler(event, context):
-    # Call the Gmail API
+    credentials = os.environ["KMS_KEY"]
+    #print (credentials)
     gmail_client = Gmail(credentials)
     gmail_client.mark_read(gmail_client.list_unread())
     

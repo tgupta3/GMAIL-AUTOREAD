@@ -7,4 +7,3 @@ phases:
   build:
     commands:
       - serverless deploy --stage dev --verbose | tee deploy.out 
- 

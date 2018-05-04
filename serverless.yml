@@ -24,9 +24,11 @@ provider:
   region: us-east-1
   timeout: 180
   deploymentBucket:
-    name: "${self:custom.secret.BUCKET}"
+    #name: "${self:custom.secret.BUCKET}"
+    name: "${ssm:/gmailread-dev/BUCKET~true}"
   environment:
-    KMS_KEY: "${self:custom.secret.KMS_KEY}"
+    #KMS_KEY: "${self:custom.secret.KMS_KEY}"
+    KMS_KEY: '${ssm:/gmailread-dev/KMS_KEY~true}'
 
 package:
   exclude:
@@ -41,7 +43,7 @@ functions:
     handler: handler.lambda_handler
     events:
       - schedule:
-          name: "${self:custom.secret.EVENT_NAME}"
+          name: "${ssm:/gmailread-dev/EVENT_NAME~true}"
           rate: cron(0 2 * * ? *)
           enabled: true
     
@@ -49,7 +51,7 @@ functions:
       - Effect: "Allow"  
         Action:
           - kms:Decrypt
-        Resource: "${self:custom.secret.KMS_ARN}"
+        Resource: "${ssm:/gmailread-dev/KMS_ARN~true}"
       
 custom:
     stage: ${opt:stage, 'default'}
@@ -61,6 +63,7 @@ custom:
 plugins:
     - serverless-python-requirements
     - serverless-iam-roles-per-function
+    - serverless-secrets
 
 
   
