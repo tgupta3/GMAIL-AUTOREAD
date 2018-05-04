@@ -37,6 +37,7 @@ package:
     - event.json
     - requirements.txt
     - README.md
+    - pre_build.py
 
 functions:
   starter:
