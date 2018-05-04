@@ -95,6 +95,5 @@ def lambda_handler(event, context):
     #print (credentials)
     gmail_client = Gmail(credentials)
     gmail_client.mark_read(gmail_client.list_unread())
-    
     return ''
 

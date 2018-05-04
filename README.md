@@ -45,7 +45,7 @@ serverless deploy --verbose
 
 ## TODO
 
-1. Add continous code deployment using Codepipeline and Codedeploy
+1. Add Prebuild test to check for keys/bucket in codebuild
 2. Update the README on how to generate the OAuth Credentials as well as the KMS Key from that
 3. Write an Ansible playbook to deploy the application starting from generating credentials to final deployment on AWS Lambda
 4. Add option to specify region

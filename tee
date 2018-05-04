@@ -1,0 +1,19 @@
+Serverless: Installing requirements of requirements.txt in .serverless...
+Serverless: Packaging service...
+Serverless: Excluding development dependencies...
+Serverless: Injecting required Python packages to package...
+ 
+  Serverless Error ---------------------------------------
+ 
+  Resource ServerlessDeploymentBucket does not exist for stack gmailread-dev
+ 
+  Get Support --------------------------------------------
+     Docs:          docs.serverless.com
+     Bugs:          github.com/serverless/serverless/issues
+     Issues:        forum.serverless.com
+ 
+  Your Environment Information -----------------------------
+     OS:                     linux
+     Node Version:           6.11.4
+     Serverless Version:     1.27.0
+ 
