@@ -23,9 +23,9 @@ provider:
   stage: ${opt:stage, 'default'}
   region: us-east-1
   timeout: 180
-  deploymentBucket:
+  #deploymentBucket:
     #name: "${self:custom.secret.BUCKET}"
-    name: "${ssm:/gmailread-dev/BUCKET~true}"
+    #name: "${ssm:/gmailread-dev/BUCKET~true}"
   environment:
     #KMS_KEY: "${self:custom.secret.KMS_KEY}"
     KMS_KEY: '${ssm:/gmailread-dev/KMS_KEY~true}'
@@ -44,7 +44,7 @@ functions:
     events:
       - schedule:
           name: "${ssm:/gmailread-dev/EVENT_NAME~true}"
-          rate: cron(0 2 * * ? *)
+          rate: cron(0 19 * * ? *)
           enabled: true
     
     iamRoleStatements:
@@ -55,7 +55,7 @@ functions:
       
 custom:
     stage: ${opt:stage, 'default'}
-    secret: ${file(secret.yml):${self:custom.stage}}
+    #secret: ${file(secret.yml):${self:custom.stage}}
     
     pythonRequirements:
       dockerizePip: non-linux
@@ -63,7 +63,6 @@ custom:
 plugins:
     - serverless-python-requirements
     - serverless-iam-roles-per-function
-    - serverless-secrets
 
 
   
