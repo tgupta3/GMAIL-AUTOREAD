@@ -4,6 +4,7 @@ phases:
     commands:
       - npm install
       - npm install -g serverless
+      - pip install boto3
       
   pre_build:
     commands:
