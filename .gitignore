@@ -1,3 +1,4 @@
 secret.yml
 handler.pyc
 event.json
+.serverless-secrets.json

@@ -4,7 +4,7 @@ from apiclient import errors
 from httplib2 import Http
 from oauth2client import file, client, tools
 from base64 import b64decode
-import boto3, json, httplib2, os
+import boto3, json, httplib2, os, sys
 
 credentials = os.environ["KMS_KEY"]
 class Gmail():
@@ -97,3 +97,5 @@ def lambda_handler(event, context):
     
     return ''
 
+if __name__ == '__main__':
+    sys.exit(lambda_handler({},{}))
