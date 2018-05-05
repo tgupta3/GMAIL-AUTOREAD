@@ -24,7 +24,7 @@ def main():
             ssm_cw_event = re.search(r'\${ssm:(.*?)(\~.*|})',svl_param['functions']['starter']['events'][0]['schedule']['name']).group(1)
             client_ssm = boto3.client('ssm')
             #print ssm_kms_arn, ssm_cw_event, ssm_kms_key
-            ssm_kms_arn = 'we'
+            
             return ssm_verify_param(client_ssm,
                 [
                 ssm_kms_key,
