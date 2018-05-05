@@ -7,6 +7,7 @@ def ssm_verify_param(client,params):
     try:
         response = client.get_parameters(Names=params)
         if (response['InvalidParameters']):
+            print ("Following keys doesn't exist %s" %str(response['InvalidParameters']))
             return 1
         return 0 
     except Exception as e:
@@ -19,12 +20,11 @@ def main():
         try:
             svl_param = yaml.load(svl_yaml)
             ssm_kms_key = re.search(r'\${ssm:(.*?)(\~.*|})',svl_param['provider']['environment']['KMS_KEY']).group(1)
-            
             ssm_kms_arn = re.search(r'\${ssm:(.*?)(\~.*|})',svl_param['functions']['starter']['iamRoleStatements'][0]['Resource']).group(1)
             ssm_cw_event = re.search(r'\${ssm:(.*?)(\~.*|})',svl_param['functions']['starter']['events'][0]['schedule']['name']).group(1)
             client_ssm = boto3.client('ssm')
             #print ssm_kms_arn, ssm_cw_event, ssm_kms_key
-            
+            ssm_kms_arn = 'we'
             return ssm_verify_param(client_ssm,
                 [
                 ssm_kms_key,
