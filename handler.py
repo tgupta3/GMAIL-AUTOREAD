@@ -4,16 +4,23 @@ from apiclient import errors
 from httplib2 import Http
 from oauth2client import file, client, tools
 from base64 import b64decode
-import boto3, json, httplib2, os, sys
+import boto3, json, httplib2, os, sys, time
 
 
 class Gmail():
     
-    def __init__(self,credentials):
+    def __init__(self,credentials,query='is:unread',time_buffer=2):
         self.credentials = credentials
         self.batch_size = 999
         self.client_kms = boto3.client('kms')
         self.service = self.__build_service()
+        self.query = self.__build_query(query,time_buffer)
+    
+    
+    def __build_query(self,query,time_buffer):
+        time_current = int(time.time())
+        time_past = time_current - 3600*time_buffer
+        return (query + ' AND before:' + str(time_past)) 
     
     def __build_service(self):
         id,secret,token = self.__get_creds()
@@ -39,17 +46,17 @@ class Gmail():
         refresh_token = info['refresh_token']
         return client_id,client_secret,refresh_token
         
-    def list_unread(self,query='is:unread',userid='me'):
+    def list_unread(self,userid='me'):
         try:
             response = self.service.users().messages().list(userId=userid,
-                                                       q=query).execute()
+                                                       q=self.query).execute()
             messages = []
             if 'messages' in response:
               messages.extend(response['messages'])
         
             while 'nextPageToken' in response:
               page_token = response['nextPageToken']
-              response = self.service.users().messages().list(userId=userid, q=query,
+              response = self.service.users().messages().list(userId=userid, q=self.query,
                                                  pageToken=page_token).execute()
               messages.extend(response['messages'])
         
